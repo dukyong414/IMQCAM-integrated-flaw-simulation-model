@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "message": "ok",
+  "summary": {
+    "rve_edge_m": 0.0003,
+    "voxel_resolution_m": 8e-06,
+    "power_w": 370.0,
+    "velocity_m_s": 1.7,
+    "hatch_m": 0.00014,
+    "layer_m": 2.9999999999999997e-05,
+    "rotation_deg": 67.0,
+    "n_modes": 20,
+    "n_path_vectors": 84,
+    "n_voxels": 54872,
+    "n_pore_voxels": 0,
+    "porosity_fraction": 0.0,
+    "porosity_pct": 0.0,
+    "n_interior": 31838,
+    "n_boundary": 16909,
+    "n_intersect": 6125,
+    "vti": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260730_234002\\porosity_map.vti",
+    "morphology": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260730_234002\\morphology.csv",
+    "preview_3d": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260730_234002\\preview_3d.png",
+    "melt_pool_data": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\Raptor\\examples\\data\\meltPoolData\\ULI_v1700_theta0_widths.txt",
+    "elapsed_s": 6.89,
+    "compute_device": "gpu",
+    "compute_mode": "auto",
+    "compute_detail": "Auto -> GPU (NVIDIA RTX 6000 Ada Generation)",
+    "gpu_name": "NVIDIA RTX 6000 Ada Generation"
+  },
+  "log": "Compute: Auto -> GPU (NVIDIA RTX 6000 Ada Generation)\nRaptor melt-mask kernel: CUDA GPU\nRVE edge=300.0 \u00b5m  voxel=8.00 \u00b5m  P=370.0 W  v=1.7 m/s  hatch=140.0 \u00b5m  layer=30.0 \u00b5m\nGrid created  n_voxels\u224854872\nPath vectors: 84\nPhases: pore=0 interior=31838 boundary=16909 intersect=6125  porosity=0.000%\n3D preview written: C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260730_234002\\preview_3d.png"
+}

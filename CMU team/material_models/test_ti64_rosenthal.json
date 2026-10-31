@@ -1,0 +1,7 @@
+{
+        "Absorptivity": 0.5,
+        "Specific Heat Capacity (J/g°C)": 0.5,
+        "Density (kg/m^3)": 7800,
+        "Melting Point (°C)": 1500,
+        "Thermal Conductivity (W/mK)": 25
+    }

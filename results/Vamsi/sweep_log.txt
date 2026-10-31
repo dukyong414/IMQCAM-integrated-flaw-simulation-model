@@ -1,0 +1,79 @@
+09:47:04  Sweep folder: C:\Users\dukyo\Desktop\Vamsi
+09:47:04  Melt-pool spectrum: averaged
+09:47:04  Velocities: 1300–1700 mm/s step 50 (9 runs)
+09:47:04  [1/9] V_1300 starting
+09:49:14  [1/9] V_1300 exported
+09:49:14  [2/9] V_1350 starting
+09:51:07  [2/9] V_1350 exported
+09:51:07  [3/9] V_1400 starting
+09:52:41  [3/9] V_1400 exported
+09:52:41  [4/9] V_1450 starting
+09:54:12  [4/9] V_1450 exported
+09:54:12  [5/9] V_1500 starting
+09:55:39  [5/9] V_1500 exported
+09:55:39  [6/9] V_1550 starting
+09:57:05  [6/9] V_1550 exported
+09:57:05  [7/9] V_1600 starting
+09:58:32  [7/9] V_1600 exported
+09:58:32  [8/9] V_1650 starting
+09:59:56  [8/9] V_1650 exported
+09:59:56  [9/9] V_1700 starting
+10:01:13  [9/9] V_1700 exported
+10:01:47  Wrote hatch, melt-pool width, and CMU vs Raptor pores/mm³
+10:01:47  Sweep finished.
+10:10:41  Sweep folder: C:\Users\dukyo\Desktop\Vamsi
+10:10:41  Melt-pool spectrum: averaged
+10:10:41  Velocities: 1300–1700 mm/s step 50 (9 runs)
+10:10:41  [1/9] V_1300 starting
+10:12:33  [1/9] V_1300 exported
+10:12:33  [2/9] V_1350 starting
+10:14:10  [2/9] V_1350 exported
+10:14:10  [3/9] V_1400 starting
+10:15:50  [3/9] V_1400 exported
+10:15:50  [4/9] V_1450 starting
+10:17:33  [4/9] V_1450 exported
+10:17:33  [5/9] V_1500 starting
+10:19:00  [5/9] V_1500 exported
+10:19:00  [6/9] V_1550 starting
+10:20:31  [6/9] V_1550 exported
+10:20:31  [7/9] V_1600 starting
+10:21:59  [7/9] V_1600 exported
+10:21:59  [8/9] V_1650 starting
+10:23:35  [8/9] V_1650 exported
+10:23:35  [9/9] V_1700 starting
+10:25:03  [9/9] V_1700 exported
+10:25:03  Wrote hatch, melt-pool width, and CMU vs Raptor pores/mm³
+10:25:03  Sweep finished.
+10:44:40  Sweep folder: C:\Users\dukyo\Desktop\Vamsi
+10:44:40  Melt-pool spectrum: averaged
+10:44:40  Velocities: 1300–1700 mm/s step 50 (9 runs)
+10:44:40  [1/9] V_1300 starting
+10:45:55  [1/9] V_1300 ran but export failed: No columns to parse from file
+10:45:55  [2/9] V_1350 starting
+10:47:04  [2/9] V_1350 ran but export failed: No columns to parse from file
+10:47:04  [3/9] V_1400 starting
+10:48:11  [3/9] V_1400 ran but export failed: No columns to parse from file
+10:48:11  [4/9] V_1450 starting
+10:48:55  Sweep folder: C:\Users\dukyo\Desktop\Vamsi
+10:48:55  Melt-pool spectrum: averaged
+10:48:55  Velocities: 1300–1700 mm/s step 50 (9 runs)
+10:48:55  [1/9] V_1300 starting
+10:50:31  [1/9] V_1300 exported
+10:50:31  [2/9] V_1350 starting
+10:52:02  [2/9] V_1350 exported
+10:52:02  [3/9] V_1400 starting
+10:53:32  [3/9] V_1400 exported
+10:53:32  [4/9] V_1450 starting
+10:54:57  [4/9] V_1450 exported
+10:54:57  [5/9] V_1500 starting
+10:56:15  [5/9] V_1500 exported
+10:56:15  [6/9] V_1550 starting
+10:57:27  [6/9] V_1550 exported
+10:57:27  [7/9] V_1600 starting
+10:58:42  [7/9] V_1600 exported
+10:58:42  [8/9] V_1650 starting
+11:00:04  [8/9] V_1650 exported
+11:00:04  [9/9] V_1700 starting
+11:01:26  [9/9] V_1700 exported
+11:01:26  Wrote hatch, melt-pool width, and CMU vs Raptor pores/mm³
+11:01:26  Sweep finished.

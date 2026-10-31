@@ -1,0 +1,22 @@
+{
+  "rve_edge_m": 0.0003,
+  "voxel_resolution_m": 8e-06,
+  "power_w": 370.0,
+  "velocity_m_s": 1.7,
+  "hatch_m": 0.00014,
+  "layer_m": 2.9999999999999997e-05,
+  "rotation_deg": 67.0,
+  "n_modes": 20,
+  "n_path_vectors": 84,
+  "n_voxels": 54872,
+  "n_pore_voxels": 0,
+  "porosity_fraction": 0.0,
+  "porosity_pct": 0.0,
+  "n_interior": 31838,
+  "n_boundary": 16909,
+  "n_intersect": 6125,
+  "vti": "C:\\Users\\\uae40\ub355\uc6a9\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260730_114605\\porosity_map.vti",
+  "morphology": "C:\\Users\\\uae40\ub355\uc6a9\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260730_114605\\morphology.csv",
+  "melt_pool_data": "C:\\Users\\\uae40\ub355\uc6a9\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\Raptor\\examples\\data\\meltPoolData\\ULI_v1700_theta0_widths.txt",
+  "elapsed_s": 4.57
+}

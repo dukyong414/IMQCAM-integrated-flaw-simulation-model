@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "message": "ok",
+  "summary": {
+    "rve_edge_m": 0.0005,
+    "voxel_resolution_m": 4.9999999999999996e-06,
+    "power_w": 370.0,
+    "velocity_m_s": 1.3,
+    "hatch_m": 0.00014,
+    "layer_m": 2.9999999999999997e-05,
+    "rotation_deg": 67.0,
+    "n_modes": 50,
+    "n_path_vectors": 198,
+    "n_voxels": 1030301,
+    "n_pore_voxels": 13,
+    "porosity_fraction": 1.2617671923059377e-05,
+    "porosity_pct": 0.0012617671923059377,
+    "n_interior": 749472,
+    "n_boundary": 229395,
+    "n_intersect": 51421,
+    "vti": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260731_163733\\rve.vti",
+    "morphology": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260731_163733\\rve_morphology.csv",
+    "preview_3d": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260731_163733\\preview_3d.png",
+    "melt_pool_data": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\Raptor\\examples\\data\\meltPoolData\\ULI_v1700_theta0_widths.txt",
+    "elapsed_s": 7.31,
+    "compute_device": "gpu",
+    "compute_mode": "auto",
+    "compute_detail": "Auto -> GPU (NVIDIA RTX 6000 Ada Generation)",
+    "gpu_name": "NVIDIA RTX 6000 Ada Generation"
+  },
+  "log": "Compute: Auto -> GPU (NVIDIA RTX 6000 Ada Generation)\nRaptor melt-mask kernel: CUDA GPU\nRVE edge=500.0 \u00b5m  voxel=5.00 \u00b5m  P=370.0 W  v=1.3 m/s  hatch=140.0 \u00b5m  layer=30.0 \u00b5m\nGrid created  n_voxels\u22481030301\nPath vectors: 198\nPhases: pore=13 interior=749472 boundary=229395 intersect=51421  porosity=0.001%\nPreview slice z-index=74 (LoF voxels on slice=4)\n3D preview written: C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\20260731_163733\\preview_3d.png"
+}

@@ -1,0 +1,10 @@
+{
+  "plate_width_mm": 120.0,
+  "plate_height_mm": 120.0,
+  "n_rows": 10,
+  "n_cols": 10,
+  "cube_size_mm": 8.0,
+  "cube_height_mm": 8.0,
+  "gap_mm": 3.6363636363636362,
+  "n_builds": 100
+}

@@ -1,0 +1,566 @@
+/* Integrated Porosity GUI — NASA / scientific theme */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+
+:root {
+  --nasa-navy: #0b3d91;
+  --nasa-navy-deep: #061f4a;
+  --nasa-red: #fc3d21;
+  --steel: #5a6a7a;
+  --steel-light: #8a9aab;
+  --surface: #f4f6f9;
+  --panel: #ffffff;
+  --border: #d5dde6;
+  --success: #1b7f4e;
+  --danger: #b42318;
+  --shadow: 0 8px 24px rgba(6, 31, 74, 0.08);
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(11, 61, 145, 0.10), transparent 60%),
+    radial-gradient(900px 400px at 100% 0%, rgba(252, 61, 33, 0.06), transparent 55%),
+    var(--surface);
+  color: #1a2330;
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem 2.5rem;
+}
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f4fa 55%, #e8eef8 100%);
+  color: var(--nasa-navy-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.25rem;
+}
+
+.app-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.app-logo {
+  display: block;
+  height: 72px;
+  width: auto;
+  max-width: min(340px, 42vw);
+  object-fit: contain;
+  background: transparent;
+  align-self: center;
+  image-rendering: auto;
+}
+
+.app-header .brand-kicker {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nasa-navy);
+  margin: 0 0 0.35rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--nasa-navy-deep);
+}
+
+.app-header .subtitle {
+  margin: 0.4rem 0 0;
+  font-size: 0.95rem;
+  color: var(--steel);
+  max-width: 36rem;
+}
+
+.app-header .status-chip {
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--nasa-navy-deep);
+}
+
+.sys-info-chip {
+  margin: -0.55rem 0 1.1rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--steel);
+  font-size: 0.78rem;
+  font-family: "IBM Plex Mono", monospace;
+  line-height: 1.35;
+  box-shadow: 0 2px 8px rgba(6, 31, 74, 0.04);
+  overflow-wrap: anywhere;
+}
+
+.status-chip {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.welcome-card {
+  max-width: 980px;
+}
+
+.welcome-hero-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin: 0 0 1.25rem;
+  background: #fff;
+}
+
+.batch-example-img {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #111;
+}
+
+.welcome-card .lead-text {
+  font-size: 1.05rem;
+  color: var(--steel);
+  margin-bottom: 1.25rem;
+}
+
+.welcome-card ol,
+.welcome-card ul {
+  line-height: 1.55;
+}
+
+/* Welcome module flowchart (clickable) */
+.module-map {
+  background: linear-gradient(180deg, #f7f9fc 0%, #eef2f7 100%);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1rem 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.module-map-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.module-map-sources {
+  gap: 2rem;
+}
+
+.module-map-arrows {
+  margin: 0.15rem 0;
+  gap: 2rem;
+  color: #5a6a7a;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.module-arrow-down {
+  width: 11.5rem;
+  text-align: center;
+}
+
+.module-map-merge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #5a6a7a;
+  margin: 0.1rem 0 0.35rem;
+}
+
+.module-arrow-fork {
+  display: flex;
+  align-items: flex-end;
+  width: min(100%, 26rem);
+  height: 1.1rem;
+}
+
+.module-arrow-line {
+  flex: 1;
+  height: 2px;
+  background: #7a8a9a;
+}
+
+.module-arrow-left {
+  border-radius: 2px 0 0 2px;
+}
+
+.module-arrow-right {
+  border-radius: 0 2px 2px 0;
+}
+
+.module-arrow-tip {
+  width: 2px;
+  height: 1.1rem;
+  background: #7a8a9a;
+}
+
+.module-arrow-down-center {
+  font-size: 0.85rem;
+  line-height: 1;
+  margin-top: 0.15rem;
+  color: #5a6a7a;
+}
+
+.module-map-label {
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7c8d;
+  margin: 1.1rem 0 0.45rem;
+}
+
+.module-node {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  width: 11.5rem;
+  min-height: 5.2rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 8px;
+  border: 1.5px solid #c5d0dc;
+  background: #fff;
+  color: #1a2330;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
+  box-shadow: 0 1px 2px rgba(15, 30, 50, 0.06);
+}
+
+.module-node:hover {
+  border-color: #0B3D91;
+  box-shadow: 0 4px 12px rgba(11, 61, 145, 0.15);
+  transform: translateY(-1px);
+}
+
+.module-node:focus-visible {
+  outline: 2px solid #0B3D91;
+  outline-offset: 2px;
+}
+
+.module-node-title {
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.module-node-sub {
+  font-size: 0.78rem;
+  color: #5a6a7a;
+  line-height: 1.3;
+}
+
+.module-node-cta {
+  margin-top: auto;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #0B3D91;
+  letter-spacing: 0.02em;
+}
+
+.module-node-hub {
+  width: 15rem;
+  min-height: 5.4rem;
+  border-color: #0B3D91;
+  background: linear-gradient(180deg, #fff 0%, #e8eef8 100%);
+}
+
+.module-node-hub .module-node-title {
+  font-size: 1rem;
+}
+
+.module-node-cmu {
+  border-top: 3px solid #c45c26;
+}
+
+.module-node-nu {
+  border-top: 3px solid #1a7a4c;
+}
+
+.module-node-comb {
+  border-top: 3px solid #0B3D91;
+}
+
+.module-node-rap {
+  border-top: 3px solid #6b4c9a;
+  width: 13.5rem;
+  min-height: 4.8rem;
+  background: linear-gradient(180deg, #fff 0%, #f3eef8 100%);
+}
+
+.module-map-hub-with-raptor {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.module-map-raptor-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 14rem;
+}
+
+.module-map-side-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b4c9a;
+  text-align: center;
+  line-height: 1.25;
+}
+
+@media (max-width: 640px) {
+  .module-arrow-down,
+  .module-map-arrows {
+    display: none;
+  }
+
+  .module-map-merge {
+    display: none;
+  }
+
+  .module-node,
+  .module-node-hub,
+  .module-node-rap {
+    width: 100%;
+  }
+
+  .module-map-hub-with-raptor {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .module-map-raptor-side {
+    max-width: none;
+  }
+}
+
+.tab-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tab-bar .tab-btn {
+  min-width: 0;
+}
+
+.tab-bar .tab-btn {
+  flex: 1;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--steel);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.tab-bar .tab-btn:hover {
+  border-color: var(--nasa-navy);
+  color: var(--nasa-navy);
+}
+
+.tab-bar .tab-btn.active {
+  background: var(--nasa-navy);
+  border-color: var(--nasa-navy);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+
+.tab-bar .tab-btn .tab-desc {
+  display: block;
+  font-weight: 400;
+  font-size: 0.78rem;
+  opacity: 0.8;
+  margin-top: 0.2rem;
+}
+
+.panel-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.1rem 1.2rem;
+  height: 100%;
+}
+
+.panel-card h3 {
+  margin: 0 0 0.85rem;
+  font-size: 1.05rem;
+  color: var(--nasa-navy-deep);
+  font-weight: 600;
+}
+
+.panel-card h4 {
+  margin: 1rem 0 0.6rem;
+  font-size: 0.9rem;
+  color: var(--steel);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.control-label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--steel);
+  margin-bottom: 0.25rem;
+}
+
+.form-control,
+.form-select,
+.Select-control,
+input.form-control,
+textarea.form-control {
+  border-radius: 8px !important;
+  border-color: var(--border) !important;
+  font-family: "IBM Plex Sans", sans-serif !important;
+}
+
+.btn-primary,
+.btn-nasa {
+  background: var(--nasa-navy) !important;
+  border-color: var(--nasa-navy) !important;
+  font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-nasa:hover {
+  background: var(--nasa-navy-deep) !important;
+  border-color: var(--nasa-navy-deep) !important;
+}
+
+.btn-accent {
+  background: var(--nasa-red) !important;
+  border-color: var(--nasa-red) !important;
+  font-weight: 600;
+}
+
+.log-box textarea,
+.log-box .form-control {
+  font-family: "IBM Plex Mono", monospace !important;
+  font-size: 0.8rem !important;
+  background: #0f1722 !important;
+  color: #d7e2ef !important;
+  border: none !important;
+  border-radius: 8px !important;
+}
+
+.figure-placeholder {
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--steel-light);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: #fafbfc;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.result-figure {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.dataset-row {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  background: #fafbfc;
+}
+
+.section-divider {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 1rem 0;
+}
+
+.footer-note {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: var(--steel-light);
+  font-size: 0.8rem;
+}
+
+.howto-copy h4 {
+  margin-top: 1rem;
+  margin-bottom: 0.45rem;
+  font-size: 0.95rem;
+  color: var(--nasa-navy-deep);
+}
+
+.howto-copy p,
+.howto-copy li {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #334155;
+}
+
+.howto-copy ul,
+.howto-copy ol {
+  padding-left: 1.15rem;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--nasa-navy) !important;
+  font-weight: 600;
+  border-color: var(--border) var(--border) #fff !important;
+}
+
+.alert {
+  border-radius: 8px;
+}

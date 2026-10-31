@@ -1,0 +1,12 @@
+{
+  "saved_at": 1786244417.382764,
+  "saved_at_iso": "2026-08-08T22:00:17",
+  "n_datasets": 1,
+  "titles": [
+    "2-BM 370W 1200mm/s (Size-Filtered >=50um)"
+  ],
+  "scaling": "z_score",
+  "smoothing": 0.02,
+  "homogenize_x": false,
+  "source": "nu_panel"
+}

@@ -1,0 +1,10 @@
+{
+  "stage": "done",
+  "frac": 1.0,
+  "pct": 100.0,
+  "message": "Raptor finished",
+  "step": 6,
+  "n_steps": 6,
+  "elapsed_s": 29.8,
+  "eta_s": 0.0
+}

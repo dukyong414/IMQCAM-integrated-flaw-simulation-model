@@ -1,0 +1,9 @@
+{
+  "shape": "cube",
+  "length_mm": 10.0,
+  "width_mm": 10.0,
+  "height_mm": 10.0,
+  "diameter_mm": 10.0,
+  "plate_x_mm": 60.0,
+  "plate_y_mm": 60.0
+}

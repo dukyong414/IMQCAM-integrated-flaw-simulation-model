@@ -1,0 +1,20 @@
+# Python package files
+__pycache__
+*.egg-info
+build
+dist
+.numba-cache
+.venv
+.pytest_cache
+.coverage
+
+# other typical case file names
+*.vti
+*morphology.csv
+*.png
+
+# vscode settings cache
+.vscode
+
+# macOS Finder metadata
+.DS_Store

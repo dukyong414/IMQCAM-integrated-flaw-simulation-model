@@ -1,0 +1,6 @@
+{
+  "ok": true,
+  "message": "ok",
+  "log": "Fitting NU spatial model on default datasets (one-time pre-fit)\u2026\nSaved cache -> C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\nu_cache\\nu_model.pkl\nMODEL_PATH=C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\nu_cache\\nu_model.pkl",
+  "model_path": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\nu_cache\\nu_model.pkl"
+}

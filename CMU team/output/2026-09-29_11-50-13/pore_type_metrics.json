@@ -1,0 +1,25 @@
+{
+  "densities_per_mm3": {
+    "gas": 0.7797705354897637,
+    "keyhole": 194.05992696723422,
+    "lof": 0.0
+  },
+  "weights": {
+    "gas": 0.00400211325250524,
+    "keyhole": 0.9959978867474947,
+    "lof": 0.0
+  },
+  "sample_counts": {
+    "gas": 40,
+    "keyhole": 9960,
+    "lof": 0
+  },
+  "mean_esd_um": {
+    "gas": 12.667725691418307,
+    "keyhole": 8.117812122649694,
+    "lof": null
+  },
+  "total_density_per_mm3": 194.839697502724,
+  "equivalent_volume_mm3": 51.32424309917743,
+  "totalpores": 10000
+}

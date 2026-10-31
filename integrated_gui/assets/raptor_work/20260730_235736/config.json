@@ -1,0 +1,17 @@
+{
+  "rve_edge_m": 0.0003,
+  "voxel_resolution_m": 8e-06,
+  "power_w": 400.0,
+  "velocity_m_s": 1.4,
+  "hatch_m": 0.00014,
+  "layer_m": 2.9999999999999997e-05,
+  "rotation_deg": 67.0,
+  "n_modes": 20,
+  "width_scale": 1.0,
+  "depth_scale": 0.8,
+  "height_scale": 0.4,
+  "enable_random_phases": true,
+  "random_seed": 42,
+  "melt_pool_data": "C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\Raptor\\examples\\data\\meltPoolData\\ULI_v1700_theta0_widths.txt",
+  "compute_device": "auto"
+}

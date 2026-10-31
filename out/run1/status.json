@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "message": "ok",
+  "summary": {
+    "part_volume_mm3": 1000.0,
+    "phi_cmu": 1.0117148927340398e-06,
+    "n_cmu": 492,
+    "phi_spatter": 2.8807159181021316e-06,
+    "n_spatter": 1476,
+    "total_phi": 3.892430810836171e-06,
+    "phi_nu_mean": 0.0001875505432783733,
+    "phi_spatter_mean": 1.8653882838563927e-05,
+    "phi_spatter_mean_raw": 0.00018653882838563925,
+    "spatter_handicap": 0.1,
+    "spatter_budget_mm3": 0.018653882838563927,
+    "spatter_budget_raw_mm3": 0.18653882838563926,
+    "spatter_realized_mm3": 0.0028807159181021284,
+    "spatter_max_pores_cap": 1476,
+    "cmu_pores": 492,
+    "total_pores": 1968,
+    "spatter_pore_count": 1476
+  },
+  "log": "Part: cube, volume=1000.000 mm3\nSampling CMU pores: ['lof', 'keyhole', 'gas'], N=500\nCMU counts: {'gas': 333, 'lof': 167}\nCMU densities: {'lof': 0.1641544605132508, 'keyhole': 0.0, 'gas': 0.3283089210265016}\nScaled CMU pores -> N=492\nAuto-fitting NU model from default datasets...\nNU fit complete\nBuilding combined pore cloud (spatter_handicap=0.1, max_vs_cmu=3.0)...\nPlaced 492 CMU + 1476 spatter = 1968 total (raw spatter budget 0.186539 mm3 \u2192 handicapped 0.018654 mm3)"
+}

@@ -1,0 +1,16 @@
+{
+    "Model": "<class 'meltpool.rosenthal.Rosenthal'>",
+    "Properties": {
+        "Absorptivity": 0.5,
+        "Density (kg/m^3)": 7800,
+        "Hatch Spacing (um)": 140,
+        "Layer Thickness (um)": 30,
+        "Melting Point (\u00b0C)": 1500,
+        "Power (W)": 370,
+        "Preheat Temperature (\u00b0C)": 100,
+        "Specific Heat Capacity (J/g\u00b0C)": 0.5,
+        "Spot Size (um)": 100,
+        "Thermal Conductivity (W/mK)": 25,
+        "Velocity (mm/s)": 1300
+    }
+}

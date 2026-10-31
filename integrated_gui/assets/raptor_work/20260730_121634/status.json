@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "message": "error",
+  "error": "Traceback (most recent call last):\n  File \"C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\raptor_worker.py\", line 149, in main\n    from raptor.io import read_data\nModuleNotFoundError: No module named 'raptor'\n",
+  "log": "Traceback (most recent call last):\n  File \"C:\\Users\\rhw7170\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\raptor_worker.py\", line 149, in main\n    from raptor.io import read_data\nModuleNotFoundError: No module named 'raptor'\n"
+}

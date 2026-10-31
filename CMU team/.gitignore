@@ -1,0 +1,9 @@
+rsa_keys/
+.venv/
+__pycache__
+rawdata/
+data/
+output/
+test/test_downloads/
+test/test_merged/
+.pytest_cache/

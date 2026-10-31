@@ -1,0 +1,23 @@
+{
+  "velocity_mm_s": 1500.0,
+  "power_w": 370.0,
+  "spot_um": 100.0,
+  "hatch_um": 140.0,
+  "layer_um": 30.0,
+  "meltpool_width_um": 153.32023289583333,
+  "width_scale": 1.0,
+  "lambda_mean": 1.04,
+  "meltpool_width_used_um": 159.45304221166666,
+  "eta_source": "flucWsMTs",
+  "density_unit": "pores/mm3",
+  "pillar_volume_mm3": 350.0,
+  "cmu_lof_per_mm3": 43.24553714304577,
+  "cmu_keyhole_per_mm3": 0.0,
+  "cmu_gas_per_mm3": 0.0,
+  "cmu_lof_count": 15135.93800006602,
+  "cmu_keyhole_count": 0.0,
+  "cmu_gas_count": 0.0,
+  "raptor_lof_per_mm3": 0.0,
+  "raptor_lof_count": 0,
+  "lof_source": "raptor_replaces_cmu"
+}

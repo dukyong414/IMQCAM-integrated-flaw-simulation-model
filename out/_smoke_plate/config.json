@@ -1,0 +1,45 @@
+{
+  "grid": 10,
+  "n_rows": 10,
+  "n_cols": 10,
+  "cube_size": 8.0,
+  "cube_height": 8.0,
+  "plate_w": 120.0,
+  "plate_h": 120.0,
+  "seed": 1,
+  "totalpores": 200,
+  "spatter_fraction": 0.25,
+  "spatter_handicap": 0.25,
+  "gas_flow": "+x",
+  "gas_flow_sharpness": 2.0,
+  "use_nu_modulation": false,
+  "mean_porosity": 0.02,
+  "pore_models": [
+    "lof",
+    "keyhole",
+    "gas"
+  ],
+  "param_dict": {
+    "Power (W)": 370,
+    "Velocity (mm/s)": 1300,
+    "Hatch Spacing (um)": 140,
+    "Layer Thickness (um)": 30,
+    "Spot Size (um)": 100,
+    "Preheat Temperature (\u00b0C)": 100,
+    "Material": "Ti6Al4V",
+    "Geometry": "4PB"
+  },
+  "props": {
+    "Absorptivity": 0.5,
+    "Specific Heat Capacity (J/g\u00b0C)": 0.5,
+    "Density (kg/m^3)": 7800,
+    "Melting Point (\u00b0C)": 1500,
+    "Thermal Conductivity (W/mK)": 25,
+    "Power (W)": 370,
+    "Velocity (mm/s)": 1300,
+    "Hatch Spacing (um)": 140,
+    "Layer Thickness (um)": 30,
+    "Spot Size (um)": 100,
+    "Preheat Temperature (\u00b0C)": 100
+  }
+}

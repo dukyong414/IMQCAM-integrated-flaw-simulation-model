@@ -1,0 +1,27 @@
+{
+  "ok": true,
+  "message": "ok",
+  "summary": {
+    "rve_edge_m": 0.00015,
+    "voxel_resolution_m": 1e-05,
+    "power_w": 370.0,
+    "velocity_m_s": 1.7,
+    "hatch_m": 0.00014,
+    "layer_m": 3e-05,
+    "rotation_deg": 67.0,
+    "n_modes": 10,
+    "n_path_vectors": 24,
+    "n_voxels": 4096,
+    "n_pore_voxels": 0,
+    "porosity_fraction": 0.0,
+    "porosity_pct": 0.0,
+    "n_interior": 2565,
+    "n_boundary": 989,
+    "n_intersect": 542,
+    "vti": "C:\\Users\\\uae40\ub355\uc6a9\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\_smoke\\porosity_map.vti",
+    "morphology": "C:\\Users\\\uae40\ub355\uc6a9\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\integrated_gui\\assets\\raptor_work\\_smoke\\morphology.csv",
+    "melt_pool_data": "C:\\Users\\\uae40\ub355\uc6a9\\OneDrive - Northwestern University\\1. Fast-AM PhD\\2. Project\\3. NASA project\\Python code\\Raptor\\examples\\data\\meltPoolData\\ULI_v1700_theta0_widths.txt",
+    "elapsed_s": 29.85
+  },
+  "log": "RVE edge=150.0 \u00b5m  voxel=10.00 \u00b5m  P=370.0 W  v=1.7 m/s  hatch=140.0 \u00b5m  layer=30.0 \u00b5m\nGrid created  n_voxels\u22484096\nPath vectors: 24\nPhases: pore=0 interior=2565 boundary=989 intersect=542  porosity=0.000%"
+}

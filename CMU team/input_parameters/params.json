@@ -1,0 +1,10 @@
+{
+    "Power (W)": 370,
+    "Velocity (mm/s)": 1300,
+    "Hatch Spacing (um)": 140,
+    "Layer Thickness (um)": 30,
+    "Spot Size (um)": 100,
+    "Preheat Temperature (°C)": 100,
+    "Material": "Ti6Al4V",
+    "Geometry": "4PB"
+}

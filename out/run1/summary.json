@@ -1,0 +1,19 @@
+{
+  "part_volume_mm3": 1000.0,
+  "phi_cmu": 1.0117148927340398e-06,
+  "n_cmu": 492,
+  "phi_spatter": 2.8807159181021316e-06,
+  "n_spatter": 1476,
+  "total_phi": 3.892430810836171e-06,
+  "phi_nu_mean": 0.0001875505432783733,
+  "phi_spatter_mean": 1.8653882838563927e-05,
+  "phi_spatter_mean_raw": 0.00018653882838563925,
+  "spatter_handicap": 0.1,
+  "spatter_budget_mm3": 0.018653882838563927,
+  "spatter_budget_raw_mm3": 0.18653882838563926,
+  "spatter_realized_mm3": 0.0028807159181021284,
+  "spatter_max_pores_cap": 1476,
+  "cmu_pores": 492,
+  "total_pores": 1968,
+  "spatter_pore_count": 1476
+}

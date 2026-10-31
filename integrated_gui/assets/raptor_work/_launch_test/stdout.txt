@@ -1,0 +1,13 @@
+Preparing 84 path vectors for simulation...
+ -> Vector preparation complete (0.00199795s).
+Running melt-mask calculation...
+ -> Spatial index: 71/84 vectors, 9 tiles, 27.00 mean candidates/tile, width=16 voxels (128.000 µm).
+ -> Spectral table plan: 580 samples, 0.01 MB resident table, clipped from 1065 samples, error bound=1.941 µm.
+ -> Memory plan: budget=2377.30 MB (automatic), fixed=0.08 MB, estimated peak=0.09 MB, mode=resident, batches=1.
+ -> Kernel: horizontal implicit/table; Numba threads=8.
+ -> Melt-mask computation complete (0.89360213s). Melted 54872 of 54872 voxels.
+VTK phase map written to: C:\Users\김덕용\OneDrive - Northwestern University\1. Fast-AM PhD\2. Project\3. NASA project\Python code\integrated_gui\assets\raptor_work\_launch_test\porosity_map.vti
+Identifying connected defects...
+ -> Found 0 defect voxels. Computing morphology features...
+Either no defects were found or all defects were single-voxel. No morphology features to write.
+WORKER_OK

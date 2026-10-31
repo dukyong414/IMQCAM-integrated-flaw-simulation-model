@@ -1,0 +1,52 @@
+# Integrated CMU + NU Porosity GUI
+# Install: pip install -r requirements_integrated.txt
+#          pip install -e ./Raptor
+# Run:     python run_integrated_gui.py
+#
+# GPU (optional): Numba CUDA is used automatically for Raptor melt-mask when an
+# NVIDIA GPU is available. Force CPU with NASA_FORCE_CPU=1 or the GUI "CPU only"
+# radio. CuPy is optional for array ops if you install a matching wheel.
+
+certifi>=2024.12.14
+charset-normalizer>=3.4.1
+contourpy>=1.3.1
+cycler>=0.12.1
+et_xmlfile>=2.0.0
+fonttools>=4.56.0
+idna>=3.10
+kiwisolver>=1.4.8
+matplotlib>=3.7.0
+# Prefer numpy 1.26.x with Anaconda pandas/pyarrow; 2.x also works in clean venvs
+numpy>=1.26.0,<2.1
+openpyxl>=3.1.5
+packaging>=24.2
+pandas>=2.0.0
+pillow>=10.0.0
+pyparsing>=3.0.0
+python-dateutil>=2.9.0
+pytz>=2024.2
+requests>=2.32.0
+scipy>=1.11.0,<1.14
+seaborn>=0.13.0
+six>=1.17.0
+tqdm>=4.67.0
+tzdata>=2024.1
+urllib3>=2.0.0
+dash>=2.14.0
+dash-bootstrap-components>=1.5.0
+plotly>=5.18.0
+pyvista>=0.43.0
+trame>=3.0.0
+trame-vtk>=2.0.0
+trame-vuetify>=2.0.0
+nest_asyncio2>=1.0.0
+# ORNL Raptor (install from ./Raptor after clone): pip install -e ./Raptor
+numba>=0.59.0
+# CUDA kernels on NVIDIA GPUs (pip-installed NVVM/CUDA libs; RTX 50xx needs CUDA 12.8+)
+numba-cuda[cu12]>=0.20
+PyYAML>=6.0
+scikit-image>=0.22.0
+psutil>=5.9.0
+# vtk is pulled by pyvista / raptor
+# Optional GPU arrays (pick one matching your CUDA toolkit), e.g.:
+# cupy-cuda12x

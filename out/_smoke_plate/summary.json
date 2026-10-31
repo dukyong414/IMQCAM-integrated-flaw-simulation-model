@@ -1,0 +1,41 @@
+{
+  "part_volume_mm3": 51200.0,
+  "n_builds": 100,
+  "n_gas": 100,
+  "phi_gas": 3.620032606340491e-09,
+  "n_lof": 50,
+  "phi_lof": 1.811704429528595e-09,
+  "n_spatter": 50,
+  "phi_spatter": 2.2011403362213798e-09,
+  "total_phi": 7.632877372090466e-09,
+  "counts_target": {
+    "lof": 50,
+    "keyhole": 0,
+    "gas": 100,
+    "spatter": 50
+  },
+  "counts_realized": {
+    "gas": 100,
+    "lof": 50,
+    "spatter": 50
+  },
+  "spatter_fraction": 0.25,
+  "gas_flow": "+x",
+  "use_nu_modulation": false,
+  "layout": {
+    "plate_width_mm": 120.0,
+    "plate_height_mm": 120.0,
+    "n_rows": 10,
+    "n_cols": 10,
+    "cube_size_mm": 8.0,
+    "cube_height_mm": 8.0,
+    "gap_mm": 3.6363636363636362,
+    "n_builds": 100
+  },
+  "cmu_density_weights": {
+    "lof": 0.1641544605132508,
+    "keyhole": 0.0,
+    "gas": 0.3283089210265016
+  },
+  "total_pores": 200
+}
