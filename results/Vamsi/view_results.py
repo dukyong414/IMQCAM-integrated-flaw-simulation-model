@@ -161,7 +161,9 @@ def figure_3d(npz_path: str, csv_path: str = "") -> go.Figure:
     # markers are the LoF pores through the interior, not only the outer face.
     def _shell(key, sy_, sz_):
         colors = np.asarray(d[key])[::sy_, ::sz_].astype(float)
-        colors[colors <= 0] = 1
+        # Skin pores, boundaries, and overlaps are the scan leaving the part.
+        # The shell stays the grey melted solid.
+        colors[(colors == 0) | (colors == 2) | (colors == 3)] = 1
         return colors
 
     fx = {k: _shell(k, ky, kz) for k in ("face_x0", "face_x1")}

@@ -26,7 +26,7 @@ MATERIAL_PATH = os.path.join(CMU_DIR, "material_models", "test_ti64_rosenthal.js
 VELOCITIES_MM_S = list(range(1300, 1701, 50))
 HATCH_UM = 140.0
 LAYER_UM = 30.0
-# Paper λ on the mean width, depth, and cap. The fluctuation spectrum is not scaled.
+# Paper λ shifts the mean width, depth, and cap. Fluctuations stay unscaled.
 LAMBDA_MEAN = 1.04
 POWER_W = 370.0
 SPOT_UM = 100.0
@@ -80,7 +80,12 @@ def _load_json(path: str) -> dict:
         return json.load(f)
 
 
-def build_config(velocity_mm_s: float, *, theta_mode: str = "per_layer") -> dict:
+def build_config(
+    velocity_mm_s: float,
+    *,
+    theta_mode: str = "per_layer",
+    lambda_mean: float = LAMBDA_MEAN,
+) -> dict:
     from integrated_gui import meltpool_library as mpl
 
     param = _load_json(EXAMPLE_PARAM_PATH)
@@ -133,8 +138,8 @@ def build_config(velocity_mm_s: float, *, theta_mode: str = "per_layer") -> dict
         "batch_cols": 4,
         "pore_models": ["lof", "keyhole", "gas"],
         "width_scale": 1.0,
-        "meltpool_width_um": process_point(float(velocity_mm_s))["meltpool_width_um"],
-        "meltpool_width_used_um": process_point(float(velocity_mm_s))["meltpool_width_used_um"],
+        "meltpool_width_um": process_point(float(velocity_mm_s), lambda_mean=lambda_mean)["meltpool_width_um"],
+        "meltpool_width_used_um": process_point(float(velocity_mm_s), lambda_mean=lambda_mean)["meltpool_width_used_um"],
         "param_dict": param,
         "props": props,
         "compute_device": "auto",
@@ -147,7 +152,7 @@ def build_config(velocity_mm_s: float, *, theta_mode: str = "per_layer") -> dict
             "angle_offset_deg": 0.0,
             "use_eta": True,
             "use_depth_shape": True,
-            "lambda_mean": LAMBDA_MEAN,
+            "lambda_mean": float(lambda_mean),
         },
         "gas_flow": "+x",
         "gas_flow_sharpness": 2.0,
@@ -155,6 +160,8 @@ def build_config(velocity_mm_s: float, *, theta_mode: str = "per_layer") -> dict
         "spatter_fraction": 0.0,
         "raptor_rve_edge_m": 5.0e-4,
         "raptor_voxel_m": 5.0e-6,
+        # 5×5×14 mm at 5 µm is 2.8e9 voxels. Keep that size; do not coarsen.
+        "raptor_whole_build_max_voxels": 3_000_000_000,
         "raptor_n_modes": 50,
     }
 
@@ -517,6 +524,7 @@ def _save_volume_sweep(
     n_frames: int = 28,
     *,
     theta_mode: str = "averaged",
+    lambda_mean: float = LAMBDA_MEAN,
 ) -> None:
     """Raptor block at this speed, then an isometric sweep that builds the solid."""
     import tempfile
@@ -526,7 +534,7 @@ def _save_volume_sweep(
     # Short block, 10 µm voxels: enough layers to show the melt-pool cross-section.
     # The full 14 mm grid is too large to keep, and this uses the same hatch,
     # layer thickness, and flucWsMTs melt pool as the pillar.
-    cfg = build_config(float(velocity_mm_s), theta_mode=theta_mode)
+    cfg = build_config(float(velocity_mm_s), theta_mode=theta_mode, lambda_mean=lambda_mean)
     raptor_cfg = {
         "power_w": POWER_W,
         "velocity_m_s": float(velocity_mm_s) / 1000.0,
@@ -606,7 +614,7 @@ def _save_all_pore_sources(npz_path: str, pores_csv: str, png_path: str) -> None
     fig.write_image(png_path, width=900, height=1100, scale=2)
 
 
-def process_point(velocity_mm_s: float) -> dict:
+def process_point(velocity_mm_s: float, *, lambda_mean: float = LAMBDA_MEAN) -> dict:
     """Hatch spacing and the flucWsMTs melt-pool width at one scan speed."""
     from integrated_gui import meltpool_library as mpl
 
@@ -623,8 +631,8 @@ def process_point(velocity_mm_s: float) -> dict:
         "layer_um": LAYER_UM,
         "meltpool_width_um": width_um,
         "width_scale": 1.0,
-        "lambda_mean": LAMBDA_MEAN,
-        "meltpool_width_used_um": width_um * LAMBDA_MEAN,
+        "lambda_mean": float(lambda_mean),
+        "meltpool_width_used_um": width_um * float(lambda_mean),
         "eta_source": "flucWsMTs",
     }
 
@@ -652,8 +660,8 @@ _PREDICTION_KEYS = (
 )
 
 
-def write_process(folder: str, velocity_mm_s: float) -> dict:
-    info = process_point(velocity_mm_s)
+def write_process(folder: str, velocity_mm_s: float, *, lambda_mean: float = LAMBDA_MEAN) -> dict:
+    info = process_point(velocity_mm_s, lambda_mean=lambda_mean)
     path = os.path.join(folder, "process.json")
     if os.path.isfile(path):
         try:
@@ -753,7 +761,7 @@ def _raptor_lof_count(csv_path: str, npz_path: str = "") -> int:
     return int((dist_mm > SURFACE_LOF_MARGIN_MM).sum())
 
 
-def write_predictions(outdir: str) -> None:
+def write_predictions(outdir: str, *, lambda_mean: float = LAMBDA_MEAN) -> None:
     """CMU and Raptor number densities, both in pores/mm³.
 
     Raptor LoF replaces the CMU LoF prediction. Keyhole and gas stay CMU.
@@ -785,7 +793,7 @@ def write_predictions(outdir: str) -> None:
             os.path.join(folder, "view3d.npz"),
         )
         vol = PILLAR_VOLUME_MM3
-        info = process_point(velocity)
+        info = process_point(velocity, lambda_mean=float(stored.get("lambda_mean", lambda_mean)))
         info.update(stored)
         info.update(
             {
@@ -834,7 +842,7 @@ def write_predictions(outdir: str) -> None:
             f.write(",".join(str(info.get(c, "")) for c in cols) + "\n")
 
 
-def write_conditions_table(outdir: str) -> None:
+def write_conditions_table(outdir: str, *, lambda_mean: float = LAMBDA_MEAN) -> None:
     rows = []
     for name in sorted(os.listdir(outdir)):
         folder = os.path.join(outdir, name)
@@ -844,7 +852,15 @@ def write_conditions_table(outdir: str) -> None:
             velocity = float(name.split("_", 1)[1])
         except ValueError:
             continue
-        info = write_process(folder, velocity)
+        stored_lam = lambda_mean
+        proc_path = os.path.join(folder, "process.json")
+        if os.path.isfile(proc_path):
+            try:
+                with open(proc_path, encoding="utf-8") as f:
+                    stored_lam = float(json.load(f).get("lambda_mean", lambda_mean))
+            except (OSError, ValueError, TypeError):
+                stored_lam = lambda_mean
+        info = write_process(folder, velocity, lambda_mean=stored_lam)
         rows.append(info)
     if not rows:
         return
@@ -888,7 +904,14 @@ def _stamp_png(path: str, text: str) -> None:
         f.write(text)
 
 
-def export_share(run_dir: str, dest: str, velocity_mm_s: float) -> None:
+def export_share(
+    run_dir: str,
+    dest: str,
+    velocity_mm_s: float,
+    *,
+    lambda_mean: float = LAMBDA_MEAN,
+    theta_mode: str = "averaged",
+) -> None:
     """Write the four share files, then drop the working run directory."""
     os.makedirs(dest, exist_ok=True)
     rap = os.path.join(run_dir, "raptor_rve")
@@ -900,7 +923,7 @@ def export_share(run_dir: str, dest: str, velocity_mm_s: float) -> None:
         from integrated_gui.raptor_view import view3d_from_vti
 
         view3d_from_vti(vti, view3d)
-    info = write_process(dest, velocity_mm_s)
+    info = write_process(dest, velocity_mm_s, lambda_mean=lambda_mean)
     caption = process_caption(info)
     if os.path.isfile(vti):
         melted_png = os.path.join(dest, "melted_build.png")
@@ -926,13 +949,24 @@ def export_share(run_dir: str, dest: str, velocity_mm_s: float) -> None:
     if os.path.isfile(view_out) and os.path.isfile(pores_out):
         _save_all_pore_sources(view_out, pores_out, os.path.join(dest, "all_pore_sources.png"))
     if os.path.isfile(view_out):
-        _save_volume_sweep(float(velocity_mm_s), os.path.join(dest, "volume_sweep.gif"))
+        _save_volume_sweep(
+            float(velocity_mm_s),
+            os.path.join(dest, "volume_sweep.gif"),
+            theta_mode=theta_mode,
+            lambda_mean=lambda_mean,
+        )
     del velocity_mm_s
     if os.path.abspath(os.path.dirname(run_dir)) == os.path.abspath(dest):
         shutil.rmtree(run_dir, ignore_errors=True)
 
 
-def _readme(path: str, outdir: str | None = None, *, theta_mode: str = "per_layer") -> None:
+def _readme(
+    path: str,
+    outdir: str | None = None,
+    *,
+    theta_mode: str = "per_layer",
+    lambda_mean: float = LAMBDA_MEAN,
+) -> None:
     table = ""
     cond = os.path.join(outdir or os.path.dirname(path), "conditions.csv")
     if os.path.isfile(cond):
@@ -980,7 +1014,7 @@ Power 370 W, spot 100 µm.
 Hatch spacing: {HATCH_UM:.0f} µm on every velocity.
 Layer thickness: {LAYER_UM:.0f} µm.
 Melt pool width: flucWsMTs mean width at that velocity.
-{('One melt pool per velocity: the cosine spectrum is the average of the eight single-track orientation files. ' if theta_mode == 'averaged' else 'Each scan vector uses the orientation file nearest its heading. ')}The mean width, depth, and cap spectra are multiplied by λ={LAMBDA_MEAN:g}, which is Raptor's scale on every Fourier amplitude. Scan paths come from Raptor's ScanPathBuilder.
+{('One melt pool per velocity: the cosine spectrum is the average of the eight single-track orientation files. ' if theta_mode == 'averaged' else 'Each scan vector uses the orientation file nearest its heading. ')}λ={float(lambda_mean):g} shifts the mean width, depth, and cap only, matching the 0.5 mm cube. Voxel size is 5 µm. Scan paths come from Raptor's ScanPathBuilder.
 No edge pores and no scan-vector file.
 {table}{pred_table}
 
@@ -1074,7 +1108,12 @@ def bundle_portable_python(outdir: str) -> str:
     return exe
 
 
-def publish_viewer(outdir: str, *, theta_mode: str = "per_layer") -> None:
+def publish_viewer(
+    outdir: str,
+    *,
+    theta_mode: str = "per_layer",
+    lambda_mean: float = LAMBDA_MEAN,
+) -> None:
     """Copy the standalone GUI, a portable Python, and a launcher into the share folder."""
     os.makedirs(outdir, exist_ok=True)
     src = os.path.join(os.path.dirname(__file__), "share_viewer.py")
@@ -1103,8 +1142,8 @@ def publish_viewer(outdir: str, *, theta_mode: str = "per_layer") -> None:
             "if errorlevel 1 pause\r\n"
             "pause\r\n"
         )
-    write_conditions_table(outdir)
-    _readme(os.path.join(outdir, "README.txt"), outdir, theta_mode=theta_mode)
+    write_conditions_table(outdir, lambda_mean=lambda_mean)
+    _readme(os.path.join(outdir, "README.txt"), outdir, theta_mode=theta_mode, lambda_mean=lambda_mean)
 
 
 def simplify_share_tree(outdir: str) -> None:
@@ -1152,9 +1191,9 @@ def simplify_share_tree(outdir: str) -> None:
     publish_viewer(outdir)
 
 
-def run_sweep(outdir: str, *, theta_mode: str = "per_layer") -> None:
+def run_sweep(outdir: str, *, theta_mode: str = "per_layer", lambda_mean: float = LAMBDA_MEAN) -> None:
     os.makedirs(outdir, exist_ok=True)
-    publish_viewer(outdir, theta_mode=theta_mode)
+    publish_viewer(outdir, theta_mode=theta_mode, lambda_mean=lambda_mean)
     log_path = os.path.join(outdir, "sweep_log.txt")
 
     def log(msg: str):
@@ -1165,6 +1204,7 @@ def run_sweep(outdir: str, *, theta_mode: str = "per_layer") -> None:
 
     log(f"Sweep folder: {outdir}")
     log(f"Melt-pool spectrum: {theta_mode}")
+    log(f"Lambda: {float(lambda_mean):g} on the mean width, depth, and cap")
     log(f"Velocities: {VELOCITIES_MM_S[0]}–{VELOCITIES_MM_S[-1]} mm/s step 50 ({len(VELOCITIES_MM_S)} runs)")
     env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYVISTA_OFF_SCREEN": "true"}
     creationflags = 0
@@ -1175,7 +1215,7 @@ def run_sweep(outdir: str, *, theta_mode: str = "per_layer") -> None:
         dest = os.path.join(outdir, label)
         run_dir = os.path.join(dest, "run")
         os.makedirs(run_dir, exist_ok=True)
-        cfg = build_config(float(velocity), theta_mode=theta_mode)
+        cfg = build_config(float(velocity), theta_mode=theta_mode, lambda_mean=lambda_mean)
         cfg_path = os.path.join(run_dir, "config.json")
         with open(cfg_path, "w", encoding="utf-8") as f:
             json.dump(cfg, f, indent=2)
@@ -1206,13 +1246,19 @@ def run_sweep(outdir: str, *, theta_mode: str = "per_layer") -> None:
             log(f"[{i}/{len(VELOCITIES_MM_S)}] {label} FAILED (exit {proc.returncode}). See {run_dir}")
             continue
         try:
-            export_share(run_dir, dest, float(velocity))
+            export_share(
+                run_dir,
+                dest,
+                float(velocity),
+                lambda_mean=lambda_mean,
+                theta_mode=theta_mode,
+            )
             log(f"[{i}/{len(VELOCITIES_MM_S)}] {label} exported")
         except Exception as exc:
             log(f"[{i}/{len(VELOCITIES_MM_S)}] {label} ran but export failed: {exc}")
-    write_conditions_table(outdir)
-    write_predictions(outdir)
-    _readme(os.path.join(outdir, "README.txt"), outdir, theta_mode=theta_mode)
+    write_conditions_table(outdir, lambda_mean=lambda_mean)
+    write_predictions(outdir, lambda_mean=lambda_mean)
+    _readme(os.path.join(outdir, "README.txt"), outdir, theta_mode=theta_mode, lambda_mean=lambda_mean)
     log("Wrote hatch, melt-pool width, and CMU vs Raptor pores/mm³")
     log("Sweep finished.")
 
@@ -1226,9 +1272,16 @@ def main():
         choices=("per_layer", "averaged", "fixed"),
         help="averaged uses one melt pool from the mean spectrum of every orientation",
     )
+    parser.add_argument(
+        "--lambda",
+        dest="lambda_mean",
+        type=float,
+        default=LAMBDA_MEAN,
+        help="shift of the mean width, depth, and cap (1.04 or 1.14)",
+    )
     args = parser.parse_args()
     outdir = args.outdir or os.path.join(desktop_dir(), "Raptor_5x5x14_V1300-1700_flucWsMTs")
-    run_sweep(os.path.abspath(outdir), theta_mode=args.theta_mode)
+    run_sweep(os.path.abspath(outdir), theta_mode=args.theta_mode, lambda_mean=args.lambda_mean)
 
 
 if __name__ == "__main__":

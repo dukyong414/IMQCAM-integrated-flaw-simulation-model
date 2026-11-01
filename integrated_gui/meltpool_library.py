@@ -316,20 +316,20 @@ def compute_porosity_grouped(
             wdata = width_cache[wpath]
         if on_group is not None:
             on_group(gi, len(groups), th)
-        series = wdata
+        series = np.array(wdata, dtype=float, copy=True)
         width_used = float(width_scale)
         depth_used = float(depth_scale)
         height_used = float(height_scale)
         if float(lambda_mean) != 1.0:
-            width_used *= float(lambda_mean)
-            depth_used *= float(lambda_mean)
-            height_used *= float(lambda_mean)
+            # Same as the 0.5 mm paper cube: shift the mean only.
+            # Depth and cap scales stay η, so fluctuations are not multiplied by λ.
+            mu = float(series[:, 1].mean())
+            series[:, 1] += (float(lambda_mean) - 1.0) * mu
             if gi == 0:
-                mu = float(np.mean(np.asarray(wdata)[:, 1]))
                 log(
-                    f"Raptor scale lambda={float(lambda_mean):g} multiplies the "
-                    f"width, depth, and cap spectra. Mean width "
-                    f"{mu * 1e6:.2f} → {mu * float(lambda_mean) * 1e6:.2f} µm."
+                    f"Lambda={float(lambda_mean):g} shifts the mean width, depth, and cap. "
+                    f"Mean width {mu * 1e6:.2f} → {mu * float(lambda_mean) * 1e6:.2f} µm. "
+                    f"Fluctuations are unchanged."
                 )
         melt_pool = create_melt_pool(
             {

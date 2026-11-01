@@ -1234,8 +1234,8 @@ def _controls_panel(params: dict):
             html.Small(
                 "Fixed 5×5×14 mm pillar. Hatch spacing 140 µm, layer 30 µm. "
                 "Melt-pool width is the single-track mean at each speed. "
-                "The width, depth, and cap spectra are multiplied by λ=1.04, "
-                "using Raptor's scale. Scan paths use Raptor's ScanPathBuilder. "
+                "λ=1.04 shifts the mean width, depth, and cap only, at 5 µm voxels, "
+                "matching the 0.5 mm cube. Scan paths use Raptor's ScanPathBuilder. "
                 "Nine runs (50 mm/s steps). Writes a folder on the Desktop. This takes a long time.",
                 className="text-muted d-block mb-1",
             ),
