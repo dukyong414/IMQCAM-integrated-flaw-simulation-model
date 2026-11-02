@@ -17,7 +17,7 @@
   "cmu_lof_count": 787.323438335745,
   "cmu_keyhole_count": 0.0,
   "cmu_gas_count": 787.323438335745,
-  "raptor_lof_per_mm3": 0.0,
-  "raptor_lof_count": 0,
+  "raptor_lof_per_mm3": 0.05142857142857143,
+  "raptor_lof_count": 18,
   "lof_source": "raptor_replaces_cmu"
 }

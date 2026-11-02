@@ -77,3 +77,26 @@
 11:01:26  [9/9] V_1700 exported
 11:01:26  Wrote hatch, melt-pool width, and CMU vs Raptor pores/mm³
 11:01:26  Sweep finished.
+13:50:36  Sweep folder: C:\Users\dukyo\Desktop\Vamsi
+13:50:36  Melt-pool spectrum: averaged
+13:50:36  Velocities: 1300–1700 mm/s step 50 (9 runs)
+13:50:36  [1/9] V_1300 starting
+13:57:39  [1/9] V_1300 exported
+13:57:39  [2/9] V_1350 starting
+14:04:05  [2/9] V_1350 exported
+14:04:05  [3/9] V_1400 starting
+14:10:14  [3/9] V_1400 exported
+14:10:14  [4/9] V_1450 starting
+14:16:20  [4/9] V_1450 exported
+14:16:20  [5/9] V_1500 starting
+14:22:08  [5/9] V_1500 exported
+14:22:08  [6/9] V_1550 starting
+14:28:10  [6/9] V_1550 exported
+14:28:10  [7/9] V_1600 starting
+14:33:40  [7/9] V_1600 exported
+14:33:40  [8/9] V_1650 starting
+14:39:23  [8/9] V_1650 exported
+14:39:23  [9/9] V_1700 starting
+14:45:04  [9/9] V_1700 exported
+14:45:04  Wrote hatch, melt-pool width, and CMU vs Raptor pores/mm³
+14:45:04  Sweep finished.
