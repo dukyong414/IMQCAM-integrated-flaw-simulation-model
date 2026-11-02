@@ -350,7 +350,11 @@ def main():
             )
             builder.generate_layers()
             path_vectors = builder.process_vectors()
-            log(f"{tag}Path vectors: {len(path_vectors)}")
+            log(
+                f"{tag}Path vectors: {len(path_vectors)}  "
+                f"effective layer={builder.effective_layer_thickness * 1e6:.1f} µm  "
+                f"powder consolidation={builder.powder_consolidation:g}"
+            )
             path_csv = os.path.join(run_dir, "path_vectors.csv")
             try:
                 from raptor.path_viz import write_path_vectors_csv

@@ -28,6 +28,7 @@ from raptor.api import (
     compute_required_modes,
     compute_spectral_components,
     create_melt_pool,
+    create_melt_pool_from_spectra,
     compute_porosity,
     compute_phase_histogram,
     write_vtk,
@@ -699,6 +700,84 @@ class TestComputePorosity:
 # =============================================================================
 
 
+class TestBoundaryTracking:
+    """``boundary_tracking=False`` writes only pores (0) and melt (1)."""
+
+    @staticmethod
+    def simulation():
+        t = np.arange(400, dtype=np.float64) * 2.5e-6
+        width = 70.0e-6 + 12.0e-6 * np.sin(2 * np.pi * 900.0 * t)
+        series = np.column_stack([t, width])
+        melt_pool = create_melt_pool(
+            {
+                "width": (series, 8, 1.0, 2.0),
+                "depth": (series, 8, 0.8, 1.0),
+                "height": (series, 8, 0.3, 1.0),
+            },
+            enable_random_phases=True,
+        )
+        bound_box = np.array([[0.0, 0.0, 0.0], [100.0e-6, 100.0e-6, 80.0e-6]])
+        grid = create_grid(5.0e-6, bound_box=bound_box)
+        vectors = create_path_vectors(
+            bound_box, 200.0, 1.0, 70.0e-6, 50.0e-6, 67.0, 50.0e-6, 1
+        )
+        return grid, vectors, melt_pool
+
+    def test_default_tracks_boundaries(self):
+        grid, vectors, melt_pool = self.simulation()
+        default = compute_porosity(grid, vectors, melt_pool, random_seed=5)
+        tracked = compute_porosity(
+            grid, vectors, melt_pool, random_seed=5, boundary_tracking=True
+        )
+        np.testing.assert_array_equal(default, tracked)
+        assert np.any(tracked >= 2)
+
+    def test_untracked_field_has_only_pore_and_melt(self):
+        grid, vectors, melt_pool = self.simulation()
+        tracked = compute_porosity(grid, vectors, melt_pool, random_seed=5)
+        untracked = compute_porosity(
+            grid, vectors, melt_pool, random_seed=5, boundary_tracking=False
+        )
+        histogram = compute_phase_histogram(untracked)
+        assert histogram[2] == histogram[3] == 0
+        assert histogram[0] > 0 and histogram[1] > 0
+        # Melt is never lost and pores are never invented.
+        assert np.all(untracked[tracked == 1] == 1)
+        assert np.all(untracked[tracked == 0] == 0)
+        # Some boundary voxels are unmelted and become pores.
+        assert np.any((tracked >= 2) & (untracked == 0))
+        assert histogram[0] > compute_phase_histogram(tracked)[0]
+
+        tracked_pores = compute_morphology(
+            tracked, grid.resolution, ["equivalent_diameter_area"]
+        )
+        untracked_pores = compute_morphology(
+            untracked, grid.resolution, ["equivalent_diameter_area"]
+        )
+        assert untracked_pores["equivalent_diameter_area"].sum() >= (
+            tracked_pores["equivalent_diameter_area"].sum()
+        )
+
+    def test_surface_voxel_is_boundary_only_when_tracked(
+        self, minimal_simulation
+    ):
+        grid, vectors, melt_pool = minimal_simulation
+        tracked = compute_porosity(grid, vectors, melt_pool)
+        untracked = compute_porosity(
+            grid, vectors, melt_pool, boundary_tracking=False
+        )
+        surface = tracked >= 2
+        assert np.any(surface)
+        np.testing.assert_array_equal(untracked[~surface], tracked[~surface])
+        assert set(np.unique(untracked[surface])) <= {0, 1}
+
+    @pytest.mark.parametrize("value", ["false", 0, None])
+    def test_non_boolean_flag_is_rejected(self, minimal_simulation, value):
+        grid, vectors, melt_pool = minimal_simulation
+        with pytest.raises(ValueError, match="boundary_tracking"):
+            compute_porosity(grid, vectors, melt_pool, boundary_tracking=value)
+
+
 class TestWriteVtk:
     """Test cases for the write_vtk function."""
 
@@ -877,3 +956,175 @@ class TestApiIntegration:
         write_morphology(morphology, str(morphology_output_path))
         assert vtk_output_path.exists()
         assert morphology_output_path.exists()
+
+
+# =============================================================================
+# Tests for create_melt_pool_from_spectra and powder consolidation
+# =============================================================================
+
+
+def _spectra_from_time_series(series, n_modes, scales, shapes):
+    spectrum = compute_spectral_components(series, n_modes=n_modes)
+    return {
+        key: (spectrum, scales[key], shapes[key])
+        for key in ("width", "depth", "height")
+    }
+
+
+class TestCreateMeltPoolFromSpectra:
+    """Direct spectral input must match the time-series route exactly."""
+
+    scales = {"width": 1.0, "depth": 0.8, "height": 0.3}
+    shapes = {"width": 2.0, "depth": 1.2, "height": 1.0}
+
+    def time_series_pool(self, series, n_modes, random_phases):
+        return create_melt_pool(
+            {
+                key: (series, n_modes, self.scales[key], self.shapes[key])
+                for key in ("width", "depth", "height")
+            },
+            enable_random_phases=random_phases,
+        )
+
+    def test_matches_time_series_route(self, sample_time_series_data):
+        expected = self.time_series_pool(sample_time_series_data, 6, False)
+        actual = create_melt_pool_from_spectra(
+            _spectra_from_time_series(
+                sample_time_series_data, 6, self.scales, self.shapes
+            ),
+            enable_random_phases=False,
+        )
+        for name in ("width", "depth", "height"):
+            np.testing.assert_array_equal(
+                getattr(actual, f"{name}_oscillations"),
+                getattr(expected, f"{name}_oscillations"),
+            )
+            assert getattr(actual, f"{name}_max") == getattr(
+                expected, f"{name}_max"
+            )
+        assert actual.depth_shape_factor == 1.2
+        assert actual.height_shape_factor == 1.0
+
+    def test_porosity_matches_time_series_route(self):
+        t = np.arange(400, dtype=np.float64) * 2.5e-6
+        width = 80.0e-6 + 12.0e-6 * np.sin(2 * np.pi * 900.0 * t)
+        series = np.column_stack([t, width])
+        bound_box = np.array([[0.0, 0.0, 0.0], [100.0e-6, 100.0e-6, 80.0e-6]])
+        grid = create_grid(5.0e-6, bound_box=bound_box)
+
+        fields = []
+        for pool in (
+            self.time_series_pool(series, 8, True),
+            create_melt_pool_from_spectra(
+                _spectra_from_time_series(series, 8, self.scales, self.shapes),
+                enable_random_phases=True,
+            ),
+        ):
+            vectors = create_path_vectors(
+                bound_box, 200.0, 1.0, 60.0e-6, 40.0e-6, 67.0, 50.0e-6, 1
+            )
+            fields.append(compute_porosity(grid, vectors, pool, random_seed=7))
+        np.testing.assert_array_equal(fields[0], fields[1])
+
+    def test_two_column_spectrum_requires_random_phases(
+        self, sample_time_series_data
+    ):
+        spectrum = compute_spectral_components(
+            sample_time_series_data, n_modes=4
+        )[:, :2]
+        spectra = {
+            key: (spectrum, self.scales[key], self.shapes[key])
+            for key in ("width", "depth", "height")
+        }
+        with pytest.raises(ValueError, match="no phase column"):
+            create_melt_pool_from_spectra(spectra, enable_random_phases=False)
+
+        pool = create_melt_pool_from_spectra(spectra, enable_random_phases=True)
+        assert pool.width_oscillations.shape == (4, 3)
+        np.testing.assert_array_equal(pool.width_oscillations[:, 2], 0.0)
+
+    def test_mean_override_is_applied_before_scale(self):
+        spectrum = np.array([[1.0e-4, 0.0], [1.0e-5, 1.0e3], [5.0e-6, 2.0e3]])
+        pool = create_melt_pool_from_spectra(
+            {
+                "width": (spectrum, 1.0, 2.0),
+                "depth": (spectrum, 0.75, 1.0),
+                "height": (spectrum, 0.2, 1.0),
+            },
+            enable_random_phases=True,
+            means={"width": 2.0e-4, "depth": 2.0e-4, "height": 2.0e-4},
+        )
+        assert pool.width_mean == pytest.approx(2.0e-4)
+        assert pool.depth_mean == pytest.approx(1.5e-4)
+        np.testing.assert_allclose(
+            pool.depth_oscillations[:, 0], 0.75 * pool.width_oscillations[:, 0]
+        )
+        assert pool.depth_max == pytest.approx(0.75 * (2.0e-4 + 1.5e-5))
+
+    @pytest.mark.parametrize(
+        ("spectrum", "message"),
+        [
+            (np.array([[1.0e-4, 5.0, 0.0]]), "row 0 must be the mean"),
+            (np.array([[-1.0e-4, 0.0, 0.0]]), "must be positive"),
+            (
+                np.array([[1.0e-4, 0.0, 0.0], [1.0e-5, -3.0, 0.0]]),
+                "frequencies after row 0 must be positive",
+            ),
+            (np.array([[np.nan, 0.0, 0.0]]), "finite values"),
+            (np.ones((3, 4)), "must have shape"),
+        ],
+    )
+    def test_invalid_spectra_are_rejected(self, spectrum, message):
+        valid = np.array([[1.0e-4, 0.0, 0.0]])
+        spectra = {
+            "width": (spectrum, 1.0, 2.0),
+            "depth": (valid, 1.0, 1.0),
+            "height": (valid, 1.0, 1.0),
+        }
+        with pytest.raises(ValueError, match=message):
+            create_melt_pool_from_spectra(spectra, enable_random_phases=False)
+
+    def test_width_shape_and_unknown_means_are_rejected(self):
+        valid = np.array([[1.0e-4, 0.0, 0.0]])
+        spectra = {
+            "width": (valid, 1.0, 1.0),
+            "depth": (valid, 1.0, 1.0),
+            "height": (valid, 1.0, 1.0),
+        }
+        with pytest.raises(ValueError, match="width shape factor must be 2.0"):
+            create_melt_pool_from_spectra(spectra, enable_random_phases=False)
+        spectra["width"] = (valid, 1.0, 2.0)
+        with pytest.raises(ValueError, match="unknown dimensions"):
+            create_melt_pool_from_spectra(
+                spectra, enable_random_phases=False, means={"cap": 1.0e-4}
+            )
+
+    def test_create_melt_pool_points_to_spectral_api(
+        self, sample_time_series_data
+    ):
+        melt_pool_data = {
+            "width": (np.ones((3, 3)), 3, 1.0, 2.0),
+            "depth": (sample_time_series_data, 3, 1.0, 2.0),
+            "height": (sample_time_series_data, 3, 1.0, 2.0),
+        }
+        with pytest.raises(ValueError, match="create_melt_pool_from_spectra"):
+            create_melt_pool(melt_pool_data, enable_random_phases=False)
+
+
+class TestPathVectorPowderConsolidation:
+    def test_create_path_vectors_passes_consolidation(
+        self, sample_bound_box, sample_process_parameters
+    ):
+        nominal = create_path_vectors(
+            sample_bound_box,
+            **sample_process_parameters,
+            powder_consolidation=1.0,
+        )
+        consolidated = create_path_vectors(
+            sample_bound_box, **sample_process_parameters
+        )  # default powder_consolidation = 0.5
+        layer = sample_process_parameters["layer_height"]
+        nominal_z = np.unique([v.start_point[2] for v in nominal])
+        consolidated_z = np.unique([v.start_point[2] for v in consolidated])
+        np.testing.assert_allclose(np.diff(nominal_z), layer)
+        np.testing.assert_allclose(np.diff(consolidated_z), 2.0 * layer)

@@ -125,7 +125,10 @@ def _path_vectors_from_strategy(
     path_vectors = builder.process_vectors()
     _log(
         f"Scan paths from Raptor ScanPathBuilder  "
-        f"hatch={hatch * 1e6:.1f} um  layer={layer * 1e6:.1f} um  "
+        f"hatch={hatch * 1e6:.1f} um  "
+        f"layer={layer * 1e6:.1f} um  "
+        f"effective layer={builder.effective_layer_thickness * 1e6:.1f} um  "
+        f"powder consolidation={builder.powder_consolidation:g}  "
         f"rotation={rotation:g} deg  extension={scan_extension * 1e3:.2f} mm  "
         f"vectors={len(path_vectors)}"
     )

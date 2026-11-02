@@ -1,5 +1,8 @@
 """Subraveti et al. velocity-space SVE: 0.5 mm cube, 5 um, mean-only lambda.
 
+ScanPathBuilder uses his powder consolidation of 0.5, so a 30 um nominal
+layer is spaced at 60 um.
+
 One ensemble per (velocity, lambda). Tracks extend l/2 past each face.
 The width spectrum is the average of the eight single-track orientations.
 Lambda shifts the mean width only; depth and cap use the multitrack
