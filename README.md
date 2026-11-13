@@ -1,10 +1,10 @@
-# Integrated porosity module
+# Integrated process flaw model developed my Tao Sun group
 
-This repository joins three porosity models in one GUI and one Python package:
+This repository integrates three porosity models in one GUI and one Python package:
 
 - **CMU** samples lack-of-fusion (LoF), keyhole, and gas pores from process parameters.
 - **NU** fits a spatial porosity field on the build plate and uses it to place those pores.
-- **Raptor** (ORNL) computes LoF from the scan path and a measured melt-pool spectrum. When Raptor runs, its LoF replaces the CMU LoF. Keyhole and gas stay CMU.
+- **Raptor** (Vanderbilt University) computes LoF from the scan path and a measured melt-pool spectrum. When Raptor runs, its LoF replaces the CMU LoF. Keyhole and gas stay CMU.
 
 Run commands from the repository root. The Python packages are `integrated_cli` and `integrated_gui`.
 
